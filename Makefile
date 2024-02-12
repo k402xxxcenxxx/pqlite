@@ -26,7 +26,7 @@ install:          ## Install the project in dev mode.
 
 .PHONY: fmt
 fmt:              ## Format code using black & isort.
-	$(ENV_PREFIX)isort pqlite/
+	$(ENV_PREFIX)isort -a "from __future__ import annotations" pqlite/
 	$(ENV_PREFIX)black -l 79 pqlite/
 	$(ENV_PREFIX)black -l 79 tests/
 
