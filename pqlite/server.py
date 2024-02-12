@@ -6,7 +6,7 @@ import threading
 
 class DistributedDatabaseServer:
     """
-    A server for a distributed database system that listens for incoming  messages and handles client connections concurrently.
+    A server for a distributed database system that listens for incoming messages and handles client connections concurrently.
 
     Attributes:
         host (str): The hostname or IP address to listen on.
