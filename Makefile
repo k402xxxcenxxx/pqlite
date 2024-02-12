@@ -33,9 +33,11 @@ fmt:              ## Format code using black & isort(include PEP563).
 .PHONY: lint
 lint:             ## Run pep8, black, mypy linters.
 	$(ENV_PREFIX)flake8 pqlite/
+	$(ENV_PREFIX)flake8 tests/
 	$(ENV_PREFIX)black -l 79 --check pqlite/
 	$(ENV_PREFIX)black -l 79 --check tests/
 	$(ENV_PREFIX)mypy --ignore-missing-imports pqlite/
+	$(ENV_PREFIX)mypy --ignore-missing-imports tests/
 
 .PHONY: test
 test: lint        ## Run tests and generate coverage report.
