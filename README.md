@@ -1,6 +1,6 @@
 # pqlite
 
-[![codecov](https://codecov.io/gh/k402xxxcenxxx/pqlite/branch/main/graph/badge.svg?token=pqlite_token_here)](https://codecov.io/gh/k402xxxcenxxx/pqlite)
+[![codecov](https://codecov.io/gh/k402xxxcenxxx/pqlite/graph/badge.svg?token=0DMEDD4AA0)](https://codecov.io/gh/k402xxxcenxxx/pqlite)
 [![CI](https://github.com/k402xxxcenxxx/pqlite/actions/workflows/main.yml/badge.svg)](https://github.com/k402xxxcenxxx/pqlite/actions/workflows/main.yml)
 
 A simple SQL engine based on Paxos algorithm in Python.
