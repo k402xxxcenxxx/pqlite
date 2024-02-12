@@ -30,7 +30,7 @@ class DistributedDatabaseClient:
         """
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.connect((self.host, self.port))
-            sock.sendall(message.encode('utf-8'))
-            response = sock.recv(1024).decode('utf-8')
+            sock.sendall(message.encode("utf-8"))
+            response = sock.recv(1024).decode("utf-8")
             print(f"Received response: {response}")
             return response

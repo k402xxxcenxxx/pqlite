@@ -37,7 +37,7 @@ class DistributedDatabaseServer:
         :param client_socket: The socket object for the client connection.
         """
         while True:
-            message = client_socket.recv(1024).decode('utf-8')
+            message = client_socket.recv(1024).decode("utf-8")
             if not message:
                 break  # Client closed connection
             print(f"Received message: {message}")
@@ -45,7 +45,7 @@ class DistributedDatabaseServer:
 
             # Example: sending a response back to the client
             response = "ACK"
-            client_socket.send(response.encode('utf-8'))
+            client_socket.send(response.encode("utf-8"))
         client_socket.close()
 
     def start(self):
@@ -59,8 +59,7 @@ class DistributedDatabaseServer:
                 client_sock, address = self.server_socket.accept()
                 print(f"Accepted connection from {address[0]}:{address[1]}")
                 client_handler = threading.Thread(
-                    target=self.handle_client_connection,
-                    args=(client_sock,)
+                    target=self.handle_client_connection, args=(client_sock,)
                 )
                 client_handler.start()
         except KeyboardInterrupt:
