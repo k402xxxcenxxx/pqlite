@@ -1,28 +1,19 @@
-"""CLI interface for pqlite project.
-
-Be creative! do whatever you want!
-
-- Install click or typer and create a CLI app
-- Use builtin argparse
-- Start a web application
-- Import things from your .base module
+"""
+The cli interface to start a server.
 """
 
+from __future__ import annotations
 
-def main():  # pragma: no cover
-    """
-    The main function executes on commands:
-    `python -m pqlite` and `$ pqlite `.
+import click
 
-    This is your program's entry point.
+from pqlite.server import DistributedDatabaseServer as DDS
 
-    You can change this function to do whatever you want.
-    Examples:
-        * Run a test suite
-        * Run a server
-        * Do some other stuff
-        * Run a command line application (Click, Typer, ArgParse)
-        * List all available tasks
-        * Run an application (Flask, FastAPI, Django, etc.)
-    """
-    print("This will do something")
+
+@click.command()
+@click.option("--host", default="localhost", help="The host of the server.")
+@click.option(
+    "--port", default=8471, type=int, help="The port of server to listen."
+)
+def main(host, port):  # pragma: no cover
+    server = DDS(host=host, port=port)
+    server.start()

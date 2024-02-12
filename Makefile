@@ -25,8 +25,8 @@ install:          ## Install the project in dev mode.
 	$(ENV_PREFIX)pip install -e .[test]
 
 .PHONY: fmt
-fmt:              ## Format code using black & isort.
-	$(ENV_PREFIX)isort pqlite/
+fmt:              ## Format code using black & isort(include PEP563).
+	$(ENV_PREFIX)isort -a "from __future__ import annotations" pqlite/
 	$(ENV_PREFIX)black -l 79 pqlite/
 	$(ENV_PREFIX)black -l 79 tests/
 

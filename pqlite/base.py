@@ -13,5 +13,7 @@ If you want to replace this with a Flask application run:
 and then choose `flask` as template.
 """
 
+from __future__ import annotations
+
 # example constant variable
 NAME = "pqlite"
