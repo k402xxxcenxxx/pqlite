@@ -7,13 +7,13 @@ repos:
     hooks:
     - id: make-lint
       name: make-lint
-      entry: bash -c 'make lint'
+      entry: make lint
       language: system
       types: [python]
       pass_filenames: false
     - id: make-fmt
       name: make-fmt
-      entry: bash -c 'make fmt'
+      entry: make fmt
       language: system
       types: [python]
       pass_filenames: false
