@@ -21,6 +21,7 @@ repos:
     rev: 24.1.1
     hooks:
       - id: black
+        args: ["-l", "79", "pqlite", "tests"]
 
   - repo: https://github.com/PyCQA/isort
     rev: 5.12.0
