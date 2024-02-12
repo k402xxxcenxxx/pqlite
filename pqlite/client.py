@@ -7,13 +7,14 @@ class DistributedDatabaseClient:
     """
     A client for sending messages to a server in a distributed database system.
 
-    This class encapsulates the functionality for connecting to a server, sending
-    a message, and receiving a response.
+    This class encapsulates the functionality for connecting to a server,
+    sending a message, and receiving a response.
     """
 
     def __init__(self, host, port):
         """
-        Initializes the DistributedDatabaseClient with the specified server host and port.
+        Initializes the DistributedDatabaseClient with the specified server
+        host and port.
 
         :param host: The hostname or IP address of the server to connect to.
         :param port: The port number of the server to connect to.
