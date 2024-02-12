@@ -10,7 +10,7 @@ from pqlite.server import DistributedDatabaseServer
 
 @pytest.fixture(scope="module")
 def server():
-    server_instance = DistributedDatabaseServer("localhost", 0)
+    server_instance = DistributedDatabaseServer("localhost", 0, "test.db")
     server_thread = threading.Thread(target=server_instance.start, daemon=True)
     server_thread.start()
     yield server_instance

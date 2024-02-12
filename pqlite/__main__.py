@@ -1,6 +1,6 @@
 """Entry point for pqlite."""
 
-from __future__ import annotations
+from __future__ import annotations  # pragma: no cover
 
 from pqlite.cli import main  # pragma: no cover
 
