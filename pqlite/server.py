@@ -4,6 +4,7 @@ import socket
 import threading
 
 from pqlite.database import Database
+from pqlite.node import Node
 
 
 class DistributedDatabaseServer:
@@ -14,8 +15,10 @@ class DistributedDatabaseServer:
     Attributes:
         host (str): The hostname or IP address to listen on.
         port (int): The port number to listen on.
+        db_file (str): The database file path to store.
         server_socket (socket.socket): The socket object for the server.
-        database (Database): The database instance to interact with
+        thread_local_db (_thread._local): The thread object to control database.
+        node_list (list): The list of Node object that stores node info.
     """
 
     def __init__(self, host, port, db_file):
@@ -30,10 +33,14 @@ class DistributedDatabaseServer:
         self.host = host
         self.port = port
         self.db_file = db_file
+
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_socket.bind((self.host, self.port))
-        self.server_socket.listen(5)
+        self.server_socket.listen()
+
         self.thread_local_db = threading.local()
+
+        self.node_list = []
         print(f"Server initialized and listening on {self.host}:{self.port}")
 
     def get_db_connection(self):
@@ -68,6 +75,15 @@ class DistributedDatabaseServer:
                 db.close()
 
             client_socket.sendall(response.encode("utf-8"))
+    
+    def add_node(self, host, port):
+        """
+        Add node to the list.
+        
+        :param host: The hostname to connect to that node.
+        :param port: The port number to connect to that node.
+        """
+        self.node_list.append(Node(host=host, port=port))
 
     def start(self):
         """
