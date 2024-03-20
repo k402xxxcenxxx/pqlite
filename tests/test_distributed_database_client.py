@@ -37,5 +37,5 @@ def test_client_sends_and_receives_message(server):
     ), "Client should receive an error response"
     response = client.send_message("BAD COMMAND")
     assert (
-        response == 'Error: invalid context'
+        response == "Error: invalid context"
     ), "Client should receive an error response"
