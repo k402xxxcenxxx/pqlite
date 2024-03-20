@@ -82,8 +82,12 @@ class DistributedDatabaseServer:
         """
         while True:
             context = client_socket.recv(1024).decode("utf-8")
-            if not context or not self.is_context_valid(context):
+            if not context:
                 break  # Client closed connection
+            if not self.is_context_valid(context):
+                client_socket.sendall("Error: invalid context".encode("utf-8"))
+                continue
+
             print(f"Received message: {context}")
 
             if context.startswith(self.OPERATION_SYNC):
