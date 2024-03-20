@@ -18,7 +18,7 @@ def server():
 
 def test_server_accepts_connections(server):
     """Test that the server accepts connections on the specified port."""
-    host, port = server.server_socket.getsockname()
+    host, port = server.host, server.port
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         connection_result = sock.connect_ex((host, port))
         assert connection_result == 0, "Server should accept connections"
