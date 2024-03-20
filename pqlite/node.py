@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from pqlite.client import DistributedDatabaseClient
+
+
 class Node:
     """
     A node description.
@@ -8,6 +11,7 @@ class Node:
         host (str): The hostname of the node.
         port (int): The port number of the node.
     """
+
     def __init__(self, host, port):
         """
         Initializes the Node with the specified host and port.
@@ -17,3 +21,4 @@ class Node:
         """
         self.host = host
         self.port = port
+        self.client = DistributedDatabaseClient(host, port)
