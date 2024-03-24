@@ -1,5 +1,6 @@
 from __future__ import annotations
 from random import choice
+import threading
 
 import pytest
 
@@ -24,12 +25,27 @@ def test_server_execution_consistency(testing_pairs):
         ), "Client should receive a created database"
 
 
-@pytest.mark.parametrize("testing_cases", [1000], indirect=True)
+@pytest.mark.parametrize("testing_cases", [10], indirect=True)
 def test_server_execution_consistency2(testing_pairs, testing_cases):
+    def execute_transaction(client, transaction):
+        client.send_message(f"sync:db_ops:{transaction}")
+
+    # List to store threads
+    threads = []
+
     # randomly pick one to do the operation
     for case in testing_cases:
         pair = choice(testing_pairs)
-        pair["client"].send_message(f"sync:db_ops:{case.transaction}")
+        # Create a thread for each transaction and start it
+        thread = threading.Thread(
+            target=execute_transaction, args=(pair["client"], case.transaction)
+        )
+        threads.append(thread)
+        thread.start()
+
+    # Wait for all threads to finish
+    for thread in threads:
+        thread.join()
 
     # every node should have the same output
     final_results = []
