@@ -10,8 +10,7 @@ from pqlite.client import DistributedDatabaseClient
 
 class TestOperation:
     movie_list = [
-        "Titanic"
-        "The Shawshank Redemption",
+        "Titanic" "The Shawshank Redemption",
         "The Godfather",
         "Inception",
         "Pulp Fiction",
@@ -38,16 +37,24 @@ class TestOperation:
     def gen_transaction(self):
         pass
 
+
 class CreateTableOperation(TestOperation):
 
     def gen_transaction(self):
-        return "CREATE TABLE movie(id INTEGER PRIMARY KEY, title TEXT UNIQUE, year INTEGER, score REAL)"
+        return """
+            CREATE TABLE movie(
+                id INTEGER PRIMARY KEY,
+                title TEXT UNIQUE,
+                year INTEGER, score REAL)
+        """
+
 
 class DeleteOperation(TestOperation):
 
     def gen_transaction(self):
         movie = random.choice(self.movie_list)
         return f"DELETE FROM movie WHERE title = '{movie}'"
+
 
 class InsertOperation(TestOperation):
 
@@ -56,7 +63,12 @@ class InsertOperation(TestOperation):
         year = random.choice(range(1900, 2024))
         score = round(random.uniform(0, 10), 1)
 
-        return f"INSERT INTO movie (title, year, score) VALUES ('{movie}', {year}, {score}) ON CONFLICT (title) DO UPDATE SET score = {score}"
+        return f"""
+            INSERT INTO movie (title, year, score)
+            VALUES ('{movie}', {year}, {score})
+            ON CONFLICT (title) DO UPDATE SET score = {score}
+            """
+
 
 @pytest.fixture(scope="module")
 def testing_pairs():
@@ -91,10 +103,18 @@ def testing_pairs():
     for p in pairs:
         p["server"].close()
 
+
 @pytest.fixture(scope="module")
 def testing_cases(request):
     n_cases = request.param
 
     cases = [CreateTableOperation()]
-    cases.extend([random.choices([InsertOperation(), DeleteOperation()], weights=[0.8, 0.2])[0] for _ in range(n_cases - 1)])
+    cases.extend(
+        [
+            random.choices(
+                [InsertOperation(), DeleteOperation()], weights=[0.8, 0.2]
+            )[0]
+            for _ in range(n_cases - 1)
+        ]
+    )
     return cases
